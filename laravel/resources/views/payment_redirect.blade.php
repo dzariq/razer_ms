@@ -1,8 +1,9 @@
 <form method="post" id="form_payment_razer" action="{{ $data->RequestURL }}">
     @csrf <!-- Include CSRF token for security -->
+    loading...
 
     @foreach($data->RequestData as $key=>$item)
-    <input type="text" id="name" name="{{$key}}" value="{{ $item }}">
+    <input type="hidden" id="name" name="{{$key}}" value="{{ $item }}">
     @endforeach
 
 </form>

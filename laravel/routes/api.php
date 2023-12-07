@@ -19,13 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('ms/payment/razer/callback', [
+    'uses' => 'CallbackController@index'
+]);
+
+Route::get('ms/payment/razer/redirect', [
+    'uses' => 'RedirectController@index'
+]);
+
 Route::middleware(['checkMerchant:encrypted_data'])->group(function () {
     // Routes accessible only to users with the specified merchant ID
     Route::get('ms/payment/razer/{encrypted_data}', [
         'uses' => 'RazerController@payment'
-        ]);
-});
-
-Route::get('ms/payment/razer/callback', [
-    'uses' => 'CallbackController@index'
     ]);
+});

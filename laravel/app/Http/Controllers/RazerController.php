@@ -60,7 +60,6 @@ class RazerController extends Controller
         );
 
         $response = json_decode(curl_exec($curl));
-
         curl_close($curl);
 
         return view('payment_redirect', ['data' => $response->TxnData]);

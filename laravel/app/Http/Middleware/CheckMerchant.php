@@ -18,21 +18,6 @@ class CheckMerchant
     {
         $encrypted_data = $request->route('encrypted_data');
 
-        // #req data
-        // $requestData = array(
-        //     'name' => $request->get('name'),
-        //     'email' => $request->get('email'),
-        //     'contact' => $request->get('contact'),
-        //     'desc' => $request->get('desc'),
-        //     'amount' => $request->get('amount'),
-        //     'currency' => $request->get('currency'),
-        //     'refNo' => $request->get('refNo'),
-        //     'channel' => $request->get('channel'),
-        //     'merchant_id' => $request->get('merchantId')
-        // );
-        // $encrypted_data = Crypt::encrypt($requestData);
-        // print_r($encrypted_data);
-        // die;
         $proceed = true;
 
         // Decrypt the merchant ID
