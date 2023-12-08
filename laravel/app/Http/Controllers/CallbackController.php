@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\payment_channel_response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Log;
 
 class CallbackController extends Controller
 {
@@ -26,6 +27,8 @@ class CallbackController extends Controller
         $error_code = $request->get('error_code');
         $error_desc = $request->get('error_desc');
         $channel = $request->get('channel');
+
+        Log::info(json_encode($request->all()));
 
         #insert into table response
         $payment_channel_response = new payment_channel_response();
