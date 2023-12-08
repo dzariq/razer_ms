@@ -26,7 +26,7 @@ class CreatePaymentResponseTable extends Migration
             $table->string('orderid',50);
             $table->string('appcode',50)->nullable();
             $table->string('error_code',150)->nullable();
-            $table->string('error_desc',150);
+            $table->string('error_desc',150)->nullable();
             $table->string('channel',50);
 
             // Add other columns as needed
