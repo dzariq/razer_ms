@@ -15,7 +15,7 @@ class CallbackController extends Controller
 
     public function index(Request $request)
     {
-        $skey = $request->get('sKey');
+        $skey = $request->get('skey');
         $tranID = $request->get('tranID');
         $domain = $request->get('domain');
         $status = $request->get('status');
