@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Log;
 class RazerController extends Controller
 {
     public function __construct()
@@ -62,6 +62,7 @@ class RazerController extends Controller
         $response = json_decode(curl_exec($curl));
         curl_close($curl);
 
+        Log::info(json_encode($response));
         return view('payment_redirect', ['data' => $response->TxnData]);
 
     }
