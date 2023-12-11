@@ -63,6 +63,10 @@ class RazerController extends Controller
         curl_close($curl);
 
         Log::info(json_encode($response));
+        if(!isset($response->TxnData)){
+            return redirect()->to(env("SENANGPAY_PAYMENT_ERROR"));
+        }
+
         return view('payment_redirect', ['data' => $response->TxnData]);
 
     }
