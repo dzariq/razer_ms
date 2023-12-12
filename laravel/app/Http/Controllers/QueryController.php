@@ -35,7 +35,7 @@ class QueryController extends Controller
         curl_setopt_array(
             $curl,
             array(
-                CURLOPT_URL => 'https://pay.merchant.razer.com/RMS/query/q_by_oid.php',
+                CURLOPT_URL => 'https://api.merchant.razer.com/RMS/query/q_by_oid.php',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -49,7 +49,11 @@ class QueryController extends Controller
             )
         );
 
-        $dataResponse = json_decode(curl_exec($curl));
+        $rawData = curl_exec($curl);
+
+        Log::info('QUERY FOR TXN ID: '.$orderId.'|'.$rawData);
+
+        $dataResponse = json_decode($rawData);
 
         curl_close($curl);
 
