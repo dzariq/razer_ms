@@ -18,7 +18,8 @@ class PaymentHistoryController extends Controller
         $orderId = $request->get('transaction_reference');
         $domain = env("RAZER_MERCHANT_ID");
 
-        $histories = payment_channel_response::where("transaction_reference", $orderId)->get();
+        $histories = payment_channel_response::where("transaction_reference", $orderId)->
+        orderby('id','DESC')->get();
 
         return json_encode($histories);
 
