@@ -23,7 +23,7 @@ class QueryController extends Controller
         $skey = md5($orderId . $domain . env("RAZER_VERIFY_KEY") . $amount);
 
         $requestData = array(
-            "orderId" => $orderId,
+            "oID" => $orderId,
             "skey" => $skey,
             "domain" => $domain,
             "amount" => $amount,
