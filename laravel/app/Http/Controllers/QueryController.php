@@ -57,7 +57,7 @@ class QueryController extends Controller
 
         curl_close($curl);
 
-        return $dataResponse;
+        return json_encode($dataResponse);
 
 
 
