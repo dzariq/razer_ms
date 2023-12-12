@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Log;
+
 class RazerController extends Controller
 {
     public function __construct()
@@ -12,7 +13,7 @@ class RazerController extends Controller
 
     public function payment(Request $request, $hash = '')
     {
-        $merchantId = 'senangpay_Dev ';
+        $merchantId = env('RAZER_MERCHANT_ID');
         $verifyKey = $request->input('verifyKey');
         $refNo = $request->input('refNo');
         $paymentChannel = $request->input('paymentChannel');
@@ -23,7 +24,10 @@ class RazerController extends Controller
         $contact = $request->input('contact');
         $desc = $request->input('desc');
 
-        $hash_str = $amount.$merchantId.$refNo.$verifyKey;
+        if ($paymentChannel == 'UNIONPAY')
+            $paymentChannel = 'GUPOP';
+
+        $hash_str = $amount . $merchantId . $refNo . $verifyKey;
         //MD5 encryption of STR
         $strmd5 = md5($hash_str);
 
@@ -37,8 +41,8 @@ class RazerController extends Controller
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
                 CURLOPT_TIMEOUT => 0,
-                CURLOPT_SSL_VERIFYPEER  => false,
-                CURLOPT_SSL_VERIFYHOST  => false,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
@@ -63,7 +67,7 @@ class RazerController extends Controller
         curl_close($curl);
 
         Log::info(json_encode($response));
-        if(!isset($response->TxnData)){
+        if (!isset($response->TxnData)) {
             return redirect()->to(env("SENANGPAY_PAYMENT_ERROR"));
         }
 
