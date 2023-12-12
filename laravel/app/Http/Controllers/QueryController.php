@@ -79,6 +79,9 @@ class QueryController extends Controller
             $senangpay_status = 'paid';
         else if ($dataResponse->StatCode == '11')
             $senangpay_status = 'failed';
+        else{
+            $senangpay_status = 'pending payment';
+        }
 
         $callbackData = array(
             'transaction_reference' => $dataResponse->OrderID,
