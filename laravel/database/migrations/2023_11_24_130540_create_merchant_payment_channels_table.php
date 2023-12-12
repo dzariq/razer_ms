@@ -15,7 +15,6 @@ class CreateMerchantPaymentChannelsTable extends Migration
     {
         Schema::create('merchant_payment_channels', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('merchant_id');
             $table->string('channel_name');
             // Add other columns as needed
             $table->timestamps();

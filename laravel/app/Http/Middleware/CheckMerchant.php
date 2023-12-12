@@ -25,8 +25,7 @@ class CheckMerchant
 
         #check DB payment channel is enabled
         $merchantPaymentChannel = merchant_payment_channel::
-            where('merchant_id', $requestData['merchant_id'])
-            ->where('channel_name', $requestData['channel'])->first();
+            where('channel_name', $requestData['channel'])->first();
 
         if (!$merchantPaymentChannel) {
             return response('Unauthorized action.', 403);
