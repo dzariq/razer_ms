@@ -51,9 +51,26 @@ class QueryController extends Controller
 
         $rawData = curl_exec($curl);
 
-        Log::info('QUERY FOR TXN ID: '.$orderId.'|'.$rawData);
+        Log::info('QUERY FOR TXN ID: ' . $orderId . '|' . $rawData);
 
         $dataResponse = json_decode($rawData);
+
+        #insert into table response
+        $payment_channel_response = new payment_channel_response();
+        $payment_channel_response->skey = '';
+        $payment_channel_response->transaction_reference = $dataResponse->OrderID;
+        $payment_channel_response->tranID = $dataResponse->TranID;
+        $payment_channel_response->domain = $dataResponse->Domain;
+        $payment_channel_response->status = $dataResponse->StatCode;
+        $payment_channel_response->amount = $dataResponse->Amount;
+        $payment_channel_response->currency = $dataResponse->Currency;
+        $payment_channel_response->paydate = $dataResponse->BillingDate;
+        $payment_channel_response->orderid = $dataResponse->OrderID;
+        $payment_channel_response->appcode = '';
+        $payment_channel_response->error_code = $dataResponse->ErrorCode;
+        $payment_channel_response->error_desc = $dataResponse->ErrorDesc;
+        $payment_channel_response->channel = $dataResponse->Channel;
+        $payment_channel_response->save();
 
         curl_close($curl);
 
