@@ -31,6 +31,10 @@ Route::post('ms/payment/razer/query', [
     'uses' => 'QueryController@index'
 ]);
 
+Route::post('ms/payment/razer/history', [
+    'uses' => 'PaymentHistoryController@index'
+]);
+
 Route::middleware(['checkMerchant:encrypted_data'])->group(function () {
     // Routes accessible only to users with the specified merchant ID
     Route::get('ms/payment/razer/{encrypted_data}', [
