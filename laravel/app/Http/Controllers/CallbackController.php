@@ -65,7 +65,7 @@ class CallbackController extends Controller
             'status' => $senangpay_status,
         );
 
-        $encrypted_data = Crypt::encrypt($callbackData);
+        $encryptedData = Crypt::encrypt($callbackData);
 
         $curl = curl_init();
 

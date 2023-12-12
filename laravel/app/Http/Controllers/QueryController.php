@@ -74,6 +74,46 @@ class QueryController extends Controller
 
         curl_close($curl);
 
+        #send callback to senangpay
+        if ($dataResponse->StatCode == '00')
+            $senangpay_status = 'paid';
+        else if ($dataResponse->StatCode == '11')
+            $senangpay_status = 'failed';
+
+        $callbackData = array(
+            'transaction_reference' => $dataResponse->OrderID,
+            'status' => $senangpay_status,
+        );
+
+        $encryptedData = Crypt::encrypt($callbackData);
+
+        $curl = curl_init();
+
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => env('SENANGPAY_PAYMENT_CALLBACK_URL'),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array(
+                    'data' => $encryptedData
+                ),
+
+            )
+        );
+
+        $response = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+        #end curl senangpay callback
+
         return json_encode($dataResponse);
 
 
