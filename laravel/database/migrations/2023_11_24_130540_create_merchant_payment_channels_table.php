@@ -20,6 +20,8 @@ class CreateMerchantPaymentChannelsTable extends Migration
             $table->timestamps();
 
         });
+
+        $this->seedData();
     }
 
     /**
@@ -30,5 +32,21 @@ class CreateMerchantPaymentChannelsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('merchant_payment_channels');
+    }
+
+      /**
+     * Seed the table with initial data.
+     *
+     * @return void
+     */
+    private function seedData()
+    {
+        // You can seed the table with initial error codes and descriptions here
+        DB::table('merchant_payment_channels')->insert([
+            ['channel_name' => 'UNIONPAY'],
+            ['channel_name' => 'WECHATPAY'],
+            ['channel_name' => 'ALIPAY'],
+            // Add more seed data as needed
+        ]);
     }
 }
